@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TrustFrameworkPolicy
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
+  PolicySchemaVersion="0.3.0.0"
+  TenantId="goatfarm.onmicrosoft.com"
+  PolicyId="B2C_1A_signinSaml"
+  PublicPolicyUri="http://goatfarm.onmicrosoft.com/B2C_1A_signinSaml"
+    DeploymentMode="Development"
+ UserJourneyRecorderEndpoint="urn:journeyrecorder:applicationinsights">
+
+  <BasePolicy>
+    <TenantId>goatfarm.onmicrosoft.com</TenantId>
+    <PolicyId>B2C_1A_TrustFrameworkExtensions</PolicyId>
+  </BasePolicy>
+
+
+  <RelyingParty>
+  <DefaultUserJourney ReferenceId="SignInSaml"/>
+  <UserJourneyBehaviors>
+    <JourneyInsights TelemetryEngine="ApplicationInsights" InstrumentationKey="2476e5a3-4f46-4a25-bbe2-48c148068686" DeveloperMode="true" ClientEnabled="false" ServerEnabled="true" TelemetryVersion="1.0.0" />
+  </UserJourneyBehaviors>
+    <TechnicalProfile Id="PolicyProfile">
+      <DisplayName>PolicyProfile</DisplayName>
+      <Protocol Name="SAML2" />
+        <Metadata>
+          <Item Key="PartnerEntity">
+          <![CDATA[
+<EntitiesDescriptor Name="https://your-federation.org/metadata/federation-name.xml"
+    xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+    xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <EntityDescriptor entityID="https://sp.cornerstone.org">
+        <SPSSODescriptor 
+        AuthnRequestsSigned="false"
+        WantsAssertionsSigned="true"
+        protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+            
+ 
+ 
+            <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified</NameIDFormat>
+ 
+            <AssertionConsumerService index="1" isDefault="true"
+                    Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                    Location="http://teamrubiconusa-stg.csod.com/samldefault.aspx"/>
+
+ 
+        </SPSSODescriptor>
+ 
+    <Organization>
+        <OrganizationName xml:lang="en">Your Service</OrganizationName>
+        <OrganizationDisplayName xml:lang="en">Your Service</OrganizationDisplayName>
+        <OrganizationURL xml:lang="en">http://sp.example.org/</OrganizationURL>
+    </Organization>
+    <ContactPerson contactType="technical">
+                <GivenName>Your</GivenName>
+        <SurName>Admin</SurName>
+        <EmailAddress>admin@example.org</EmailAddress>
+    </ContactPerson>
+         
+    </EntityDescriptor>
+ 
+</EntitiesDescriptor>
+                    ]]>
+          </Item>
+          <Item Key="KeyEncryptionMethod">Rsa15</Item>
+          <Item Key="DataEncryptionMethod">Aes256</Item>
+          <Item Key="XmlSignatureAlgorithm">Sha1</Item>
+          <Item Key="WantsSignedResponses">true</Item>
+          <Item Key="ResponsesSigned">true</Item>
+          <Item Key="AssertionsEncrypted">false</Item>
+          <Item Key="WantsEncryptedAssertions">false</Item>
+          <Item Key="WantsAssertionsSigned">true</Item>
+        </Metadata>
+          
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="displayName" />
+          <OutputClaim ClaimTypeReferenceId="objectId"/>
+          <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" PartnerClaimType="email"/>
+        </OutputClaims>
+        <!-- The ClaimType in the SubjectNamingInfo element below is a reference to the name of the claim added to the claims bag used by the token minting process.
+        This name is determined in the following order. If no PartnerClaimType is specified on the output claim above, then the DefaultPartnerClaimType for the protocol 
+        specified in the claims schema if one exists is used, otherwise the ClaimTypeReferenceId in the output claim is used.
+
+        For the SubjectNamingInfo below we use the DefaultPartnerClaimType of http://schemas.microsoft.com/identity/claims/objectidentifier, since the output claim does not specify a PartnerClaimType. -->
+        <SubjectNamingInfo ClaimType="email" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified" ExcludeAsClaim="false"/>
+    </TechnicalProfile>
+</RelyingParty>
+</TrustFrameworkPolicy>
+
+
+
