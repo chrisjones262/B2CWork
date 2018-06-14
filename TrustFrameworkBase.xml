@@ -293,6 +293,13 @@
         <UserInputType>TextBox</UserInputType>
       </ClaimType>
 
+      <ClaimType Id="city">
+        <DisplayName>city</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Your city</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+
     </ClaimsSchema>
 
     <ClaimsTransformations>
@@ -807,6 +814,7 @@
           </OutputClaims>
           <ValidationTechnicalProfiles>
             <ValidationTechnicalProfile ReferenceId="AAD-UserWriteProfileUsingObjectId" />
+            <ValidationTechnicalProfile ReferenceId="AzureFunctions-CheckPlayerTagWebHook" />
           </ValidationTechnicalProfiles>
         </TechnicalProfile>
       </TechnicalProfiles>
@@ -843,8 +851,10 @@
             <OutputClaim ClaimTypeReferenceId="displayName" />
             <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surName" />
+<!--            <OutputClaim ClaimTypeReferenceId="city" /> -->
           </OutputClaims>
           <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AzureFunctions-CheckPlayerTagWebHook" />
             <ValidationTechnicalProfile ReferenceId="AAD-UserWriteUsingLogonEmail" />
           </ValidationTechnicalProfiles>
           <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
@@ -1027,6 +1037,37 @@
 
       </TechnicalProfiles>
     </ClaimsProvider>
+
+<ClaimsProvider>
+    <DisplayName>REST APIs</DisplayName>
+    <TechnicalProfiles>
+        <TechnicalProfile Id="AzureFunctions-CheckPlayerTagWebHook">
+            <DisplayName>Check Player Tag Web Hook Azure Function</DisplayName>
+            <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+            <Metadata>
+                <Item Key="ServiceUrl">https://trfuncs.azurewebsites.net/api/HttpTriggerCSharp1?code=b9a7JXPVTWMyXmDf7eORKCcuHOSGo51s0DP/Dwm3Zwm8c/OFYus8FA==</Item>
+                <Item Key="AuthenticationType">None</Item>
+                <Item Key="SendClaimsIn">Body</Item>
+            </Metadata>
+            <InputClaims>
+                <InputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="playerTag" />
+            </InputClaims>
+            <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+        </TechnicalProfile>
+        <!-- causes a dupe 
+        <TechnicalProfile Id="SelfAsserted-ProfileUpdate">
+            <ValidationTechnicalProfiles>
+                <ValidationTechnicalProfile ReferenceId="AzureFunctions-CheckPlayerTagWebHook" />
+            </ValidationTechnicalProfiles>
+        </TechnicalProfile>
+        -->  
+    </TechnicalProfiles>
+</ClaimsProvider>
+
+
+
+
+
   </ClaimsProviders>
 
   <UserJourneys>
