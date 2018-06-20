@@ -79,6 +79,7 @@
           <OutputClaim ClaimTypeReferenceId="displayName" />
           <OutputClaim ClaimTypeReferenceId="objectId"/>
           <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" PartnerClaimType="email"/>
+          <OutputClaim ClaimTypeReferenceId="city"/>
         </OutputClaims>
         <!-- The ClaimType in the SubjectNamingInfo element below is a reference to the name of the claim added to the claims bag used by the token minting process.
         This name is determined in the following order. If no PartnerClaimType is specified on the output claim above, then the DefaultPartnerClaimType for the protocol 
