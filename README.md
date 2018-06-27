@@ -1,3 +1,3 @@
 # B2CWork
 Custom policies to handle SAML SP-initiated authentication. 
-See the validation branch for modifications to this code to handle TR registration experience and address validation.
+Validation branch has been merged into master:  Now contains all the validation.
