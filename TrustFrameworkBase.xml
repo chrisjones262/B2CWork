@@ -293,6 +293,57 @@
         <UserInputType>TextBox</UserInputType>
       </ClaimType>
 
+
+      <ClaimType Id="city">
+        <DisplayName>city</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Your city</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+
+      <ClaimType Id="state">
+        <DisplayName>state</DisplayName>
+        <DataType>string</DataType>
+        <UserInputType>DropdownSingleSelect</UserInputType>
+        <Restriction>
+          <Enumeration Text="Alabama" Value="AL" SelectByDefault="false" />
+          <Enumeration Text="Alaaska" Value="AK" SelectByDefault="false" />
+          <Enumeration Text="Arizona" Value="AZ" SelectByDefault="false" />
+          <Enumeration Text="Arkansas" Value="AS" SelectByDefault="false" />
+          <Enumeration Text="California" Value="CA" SelectByDefault="false" />
+          <Enumeration Text="Colorado" Value="CO" SelectByDefault="false" />
+          <Enumeration Text="Connecticut" Value="CT" SelectByDefault="false" />
+        </Restriction>
+      </ClaimType>
+
+      <ClaimType Id="extension_street">
+        <DisplayName>street address</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Your street addresss</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+
+      <ClaimType Id="extension_zip">
+        <DisplayName>zip</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Your zip</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+
+      <ClaimType Id="extension_milaffiliation">
+        <DisplayName>Military Affiliation</DisplayName>
+        <DataType>string</DataType>
+        <UserInputType>DropdownSingleSelect</UserInputType>
+        <Restriction>
+          <Enumeration Text="Army" Value="Army" SelectByDefault="false" />
+          <Enumeration Text="Navy" Value="Navy" SelectByDefault="false" />
+          <Enumeration Text="Airforce" Value="Airforce" SelectByDefault="false" />
+          <Enumeration Text="Marines" Value="Marines" SelectByDefault="false" />
+          <Enumeration Text="Coast Guard" Value="CoastGuard" SelectByDefault="false" />
+          <Enumeration Text="Imperial Stormtroopers" Value="Stormtrooper" SelectByDefault="false" />
+        </Restriction>
+      </ClaimType>
+
     </ClaimsSchema>
 
     <ClaimsTransformations>
@@ -533,6 +584,12 @@
         <TechnicalProfile Id="AAD-Common">
           <DisplayName>Azure Active Directory</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AzureActiveDirectoryProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+        
+          <Metadata>
+            <Item Key="ApplicationObjectId">6ff070bd-9e1d-4f5b-af80-3d9725cc9012</Item>
+            <Item Key="ClientId">55022ad5-bee2-43c8-824b-19c97cea28eb</Item>
+          </Metadata>
+
 
           <CryptographicKeys>
             <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
@@ -633,6 +690,11 @@
             <!-- Optional claims. -->
             <PersistedClaim ClaimTypeReferenceId="givenName" />
             <PersistedClaim ClaimTypeReferenceId="surname" />
+            <PersistedClaim ClaimTypeReferenceId="extension_street"/>
+            <PersistedClaim ClaimTypeReferenceId="city"/>
+            <PersistedClaim ClaimTypeReferenceId="state"/>
+            <PersistedClaim ClaimTypeReferenceId="extension_zip"/>
+            <PersistedClaim ClaimTypeReferenceId="extension_milaffiliation"/>
           </PersistedClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="objectId" />
@@ -665,6 +727,11 @@
             <OutputClaim ClaimTypeReferenceId="displayName" />
             <OutputClaim ClaimTypeReferenceId="otherMails" />
             <OutputClaim ClaimTypeReferenceId="signInNames.emailAddress" />
+            <OutputClaim ClaimTypeReferenceId="extension_street"/>
+            <OutputClaim ClaimTypeReferenceId="city"/>
+            <OutputClaim ClaimTypeReferenceId="state"/>
+            <OutputClaim ClaimTypeReferenceId="extension_zip"/>
+            <OutputClaim ClaimTypeReferenceId="extension_milaffiliation"/>
           </OutputClaims>
           <IncludeTechnicalProfile ReferenceId="AAD-Common" />
         </TechnicalProfile>
@@ -705,6 +772,11 @@
             <!-- Optional claims -->
             <PersistedClaim ClaimTypeReferenceId="givenName" />
             <PersistedClaim ClaimTypeReferenceId="surname" />
+            <PersistedClaim ClaimTypeReferenceId="extension_street"/>
+            <PersistedClaim ClaimTypeReferenceId="city"/>
+            <PersistedClaim ClaimTypeReferenceId="state"/>
+            <PersistedClaim ClaimTypeReferenceId="extension_zip"/>
+            <PersistedClaim ClaimTypeReferenceId="extension_milaffiliation"/>
           </PersistedClaims>
           <IncludeTechnicalProfile ReferenceId="AAD-Common" />
         </TechnicalProfile>
@@ -727,6 +799,11 @@
             <OutputClaim ClaimTypeReferenceId="otherMails" />
             <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surname" />
+            <OutputClaim ClaimTypeReferenceId="extension_street" />
+            <OutputClaim ClaimTypeReferenceId="city" />
+            <OutputClaim ClaimTypeReferenceId="state"/>
+            <OutputClaim ClaimTypeReferenceId="extension_zip"/>
+            <OutputClaim ClaimTypeReferenceId="extension_milaffiliation"/>
           </OutputClaims>
           <IncludeTechnicalProfile ReferenceId="AAD-Common" />
         </TechnicalProfile>
@@ -756,6 +833,7 @@
             <InputClaim ClaimTypeReferenceId="displayName" />
             <InputClaim ClaimTypeReferenceId="givenName" />
             <InputClaim ClaimTypeReferenceId="surname" />
+            <InputClaim ClaimTypeReferenceId="city" />
           </InputClaims>
           <OutputClaims>
             <!-- These claims are not shown to the user because their value is obtained through the "ValidationTechnicalProfiles"
@@ -771,6 +849,7 @@
             <OutputClaim ClaimTypeReferenceId="displayName" />
             <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surname" />
+            <OutputClaim ClaimTypeReferenceId="city" />
           </OutputClaims>
           <ValidationTechnicalProfiles>
             <ValidationTechnicalProfile ReferenceId="AAD-UserWriteUsingAlternativeSecurityId" />
@@ -795,6 +874,11 @@
                  ValidationTechnicalProfile referenced below so it can be written to directory after being updateed by the user, i.e. AAD-UserWriteProfileUsingObjectId. -->
             <InputClaim ClaimTypeReferenceId="givenName" />
             <InputClaim ClaimTypeReferenceId="surname" />
+            <InputClaim ClaimTypeReferenceId="extension_street" />
+            <InputClaim ClaimTypeReferenceId="city" />
+            <InputClaim ClaimTypeReferenceId="state"/>
+            <InputClaim ClaimTypeReferenceId="extension_zip"/>
+            <InputClaim ClaimTypeReferenceId="extension_milaffiliation"/>
           </InputClaims>
           <OutputClaims>
             <!-- Required claims -->
@@ -804,8 +888,15 @@
                  ValidationTechnicalProfile referenced below so it can be written to directory after being updateed by the user, i.e. AAD-UserWriteProfileUsingObjectId. -->
             <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surname" />
+            <OutputClaim ClaimTypeReferenceId="extension_street" />
+            <OutputClaim ClaimTypeReferenceId="city" />
+            <OutputClaim ClaimTypeReferenceId="state"/>
+            <OutputClaim ClaimTypeReferenceId="extension_zip"/>
+            <OutputClaim ClaimTypeReferenceId="extension_milaffiliation"/>
           </OutputClaims>
           <ValidationTechnicalProfiles>
+            <!--ValidationTechnicalProfile ReferenceId="AzureFunctions-CheckPlayerTagWebHook" /-->
+            <ValidationTechnicalProfile ReferenceId="AzureFunctions-ValidateAddressWebhook" />
             <ValidationTechnicalProfile ReferenceId="AAD-UserWriteProfileUsingObjectId" />
           </ValidationTechnicalProfiles>
         </TechnicalProfile>
@@ -843,8 +934,15 @@
             <OutputClaim ClaimTypeReferenceId="displayName" />
             <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surName" />
+            <OutputClaim ClaimTypeReferenceId="extension_street" /> 
+            <OutputClaim ClaimTypeReferenceId="city" /> 
+            <OutputClaim ClaimTypeReferenceId="state"/>
+            <OutputClaim ClaimTypeReferenceId="extension_zip"/>
+            <OutputClaim ClaimTypeReferenceId="extension_milaffiliation"/>
           </OutputClaims>
           <ValidationTechnicalProfiles>
+            <!-- ValidationTechnicalProfile ReferenceId="AzureFunctions-CheckPlayerTagWebHook" /-->
+            <ValidationTechnicalProfile ReferenceId="AzureFunctions-ValidateAddressWebhook" />
             <ValidationTechnicalProfile ReferenceId="AAD-UserWriteUsingLogonEmail" />
           </ValidationTechnicalProfiles>
           <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
@@ -1027,6 +1125,37 @@
 
       </TechnicalProfiles>
     </ClaimsProvider>
+
+<ClaimsProvider>
+    <DisplayName>REST APIs</DisplayName>
+        
+        <!-- here we'll call an azure function that will take the input JSON and call the Experian validation API.
+        We need to have an Azure function "shim" because the API takes a single string argument for the address
+        whereas we collect three separate fields.   The function will be protected by an Azure Functions API key 
+        and HTTPS so we needn't password-protect it.  The function will be configurable with the Experian API key.-->
+        <TechnicalProfile Id="AzureFunctions-ValidateAddressWebhook">
+            <DisplayName>Check Player Tag Web Hook Azure Function</DisplayName>
+            <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+            <Metadata>
+                <Item Key="ServiceUrl">https://trfuncs.azurewebsites.net/api/AddressValidation?code=quzW6BPlxdH3anbCXLeK6u0L6q3JCn0pVrBnACtEDabhualJC9LcPw==</Item>
+                <Item Key="AuthenticationType">None</Item>
+                <Item Key="SendClaimsIn">Body</Item>
+            </Metadata>
+            <InputClaims>
+                <InputClaim ClaimTypeReferenceId="extension_street" PartnerClaimType="street"/>
+                <InputClaim ClaimTypeReferenceId="city"/>
+                <InputClaim ClaimTypeReferenceId="state"/>
+                <InputClaim ClaimTypeReferenceId="extension_zip" PartnerClaimType="zip"/>
+            </InputClaims>
+            <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+        </TechnicalProfile>
+    </TechnicalProfiles>
+</ClaimsProvider>
+
+
+
+
+
   </ClaimsProviders>
 
   <UserJourneys>

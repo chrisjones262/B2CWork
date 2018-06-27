@@ -31,6 +31,10 @@
         <OutputClaim ClaimTypeReferenceId="email" />
         <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub"/>
         <OutputClaim ClaimTypeReferenceId="identityProvider" />
+        <OutputClaim ClaimTypeReferenceId="city"/>
+        <OutputClaim ClaimTypeReferenceId="extension_milaffiliation"/>
+        <OutputClaim ClaimTypeReferenceId="extension_zip"/>
+        <OutputClaim ClaimTypeReferenceId="extension_street"/>
       </OutputClaims>
       <SubjectNamingInfo ClaimType="sub" />
     </TechnicalProfile>
