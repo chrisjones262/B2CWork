@@ -1128,7 +1128,7 @@
 
 <ClaimsProvider>
     <DisplayName>REST APIs</DisplayName>
-        
+        <TechnicalProfiles>
         <!-- here we'll call an azure function that will take the input JSON and call the Experian validation API.
         We need to have an Azure function "shim" because the API takes a single string argument for the address
         whereas we collect three separate fields.   The function will be protected by an Azure Functions API key 
